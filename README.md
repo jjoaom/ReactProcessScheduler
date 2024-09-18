@@ -35,7 +35,7 @@ O projeto está hospedado na plataforma Vercel e pode ser acessado através do s
 Para rodar o projeto localmente, siga os seguintes passos:
 
 1. Clone o repositório:
-   git clone https://github.com/seu-usuario/seu-repositorio.git
+   git clone https://github.com/jjoaom/ReactProcessScheduler
 2. Instale as dependências:
    npm install
 3. Execute o projeto:
