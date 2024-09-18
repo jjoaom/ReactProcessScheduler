@@ -11,7 +11,7 @@ const Footer = () => {
           {/* Cauan */}
           <div className="col-md-4 d-flex align-items-center mb-3 mb-md-0">
             <span className="me-2">Cauan Augusto</span>
-            <a href="https://github.com/" target="_blank" rel="noopener noreferrer" className="text-white me-2">
+            <a href="https://github.com/cauan-au/" target="_blank" rel="noopener noreferrer" className="text-white me-2">
               <FaGithub />
             </a>
             <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer" className="text-white">

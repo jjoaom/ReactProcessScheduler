@@ -2,7 +2,6 @@ html, body, #root {
   height: 100%;
 }
 
-
 /* Remove setas no Chrome, Safari e Edge */
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
