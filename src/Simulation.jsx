@@ -7,7 +7,7 @@ function Simulation() {
         'success',
       ].map((variant) => (
         <Alert key={variant} variant={variant}>
-          This is a {variant} alert—check it out!
+          Simulação será exibida aqui.
         </Alert>
       ))}
     </div>
