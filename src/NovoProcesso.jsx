@@ -22,7 +22,7 @@ function NovoProcesso() {
         <Modal.Body>
           <FormProcesso/>
         </Modal.Body>
-        <Modal.Footer>
+        <Modal.Footer className='d-flex justify-content-center'>
           <Button variant="secondary" onClick={handleClose}>
             Cancelar
           </Button>
