@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Footer = () => {
   return (
-    <footer className="bg-dark text-white py-3">
+    <footer className="bg-sim text-white py-1">
       <div className="container">
         <div className="row justify-content-between align-items-center">
           
@@ -12,10 +12,10 @@ const Footer = () => {
           <div className="col-md-4 d-flex align-items-center mb-3 mb-md-0">
             <span className="me-2">Cauan Augusto</span>
             <a href="https://github.com/cauan-au/" target="_blank" rel="noopener noreferrer" className="text-white me-2">
-              <FaGithub />
+              <FaGithub className="neon-icon"/>
             </a>
             <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer" className="text-white">
-              <FaLinkedin />
+              <FaLinkedin className="neon-icon" />
             </a>
           </div>
 
@@ -23,16 +23,17 @@ const Footer = () => {
           <div className="col-md-4 d-flex align-items-center mb-3 mb-md-0">
             <span className="me-2">João Marcos Aquino</span>
             <a href="https://github.com/jjoaom" target="_blank" rel="noopener noreferrer" className="text-white me-2">
-              <FaGithub />
+              <FaGithub className="neon-icon" />
             </a>
             <a href="https://www.linkedin.com/in/jjoaom" target="_blank" rel="noopener noreferrer" className="text-white">
-              <FaLinkedin />
+              <FaLinkedin className="neon-icon"/>
             </a>
           </div>
 
           {/* Texto central */}
-          <div className="col-md-4 text-center">
-            <span>@PUC-MINAS 2024</span>
+          <div className="col-md-2 text-center ">
+            <small className="ms-2" >Professora Cíntia Pinto Avelar  </small>
+            <small className="mt-2">@PUC-Minas 2024</small>
           </div>
 
         </div>

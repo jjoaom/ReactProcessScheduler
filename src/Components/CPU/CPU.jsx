@@ -6,7 +6,7 @@ import StartProcess from './StartProcess';
 import Simulation from './Simulation';
 import TipoProcesso from './TipoProcesso';
 
-function Main() {
+function CPU() {
   const [cards, setCards] = useState([]);
 
   useEffect(() => {
@@ -47,7 +47,7 @@ function Main() {
           </div>
           <ProcessList cards={cards} onDeleteCard={deleteCard} />
         </Col>
-        <Col md={8} lg={10} className="bg-dark d-flex align-items-center justify-content-center h-100">
+        <Col md={8} lg={10} className="bg-sim d-flex align-items-center justify-content-center h-100">
           <Simulation />
         </Col>
       </Row>
@@ -55,4 +55,4 @@ function Main() {
   );
 }
 
-export default Main;
+export default CPU;

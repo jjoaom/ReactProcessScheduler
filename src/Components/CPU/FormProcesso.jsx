@@ -27,6 +27,8 @@ function FormProcesso({ onAddCard }) {
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="name">
           <Form.Control
+            autoFocus 
+            className="custom-input"
             type="text"
             name="name"
             value={formData.name}
@@ -35,8 +37,9 @@ function FormProcesso({ onAddCard }) {
           />
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="chegada">
+        <Form.Group className="mb-3"  controlId="chegada">
           <Form.Control
+            className="custom-input"
             type="number"
             name="chegada"
             value={formData.chegada}
@@ -47,6 +50,7 @@ function FormProcesso({ onAddCard }) {
 
         <Form.Group className="mb-3" controlId="duracao">
           <Form.Control
+            className="custom-input"
             type="number"
             name="duracao"
             value={formData.duracao}
@@ -56,7 +60,7 @@ function FormProcesso({ onAddCard }) {
         </Form.Group>
 
         <div className="d-flex justify-content-center">
-          <Button variant="primary" type="submit">
+          <Button className="btn text-white color-p" type="submit">
             Criar
           </Button>
         </div>
