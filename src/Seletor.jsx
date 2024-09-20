@@ -13,7 +13,7 @@ function Seletor() {
 
   return (
     <ButtonGroup aria-label="Seletor de Simulador">
-      {/* Botão ativo que permite a navegação */}
+      {/* Botão ativo*/}
       <Button
         className="btn color-p"
         onClick={() => handleNavigation('/cpu', false)}
@@ -21,7 +21,7 @@ function Seletor() {
         CPU
       </Button>
 
-      {/* Botões desativados que impedem a navegação */}
+      {/* Botões desativados */}
       <Button
         className="btn color-p"
         onClick={() => handleNavigation('/parte2', true)}
