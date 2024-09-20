@@ -24,8 +24,8 @@ function Seletor() {
       {/* Botões desativados */}
       <Button
         className="btn color-p"
-        onClick={() => handleNavigation('/parte2', true)}
-        disabled
+        onClick={() => handleNavigation('/parte2', false)}
+        
       >
         Parte 2
       </Button>
