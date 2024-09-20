@@ -21,34 +21,36 @@ input[type=number] {
 }
 /* Background color*/
 .bg-sim{
-  background-color: #191923 !important;
+  background-color: #1d1a2f !important;
   
 }
 /* Efeitos botões */
 .color-g {
-  background-color: #76b68b !important;
-  border-color: #AFE3C0 !important;
+  background-color: #3f6d4e !important;
+  border-color: #8bd450 !important;
   color: white !important ; 
   transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease !important;
 }
 
 .color-g:hover {
-  background-color: white !important; 
-  color: #76b68b !important; 
-  box-shadow: 0 0 5px #76b68b, 0 0 5px #76b68b, 0 0 15px #76b68b !important; 
+  background-color: #f5f5f5 !important; 
+  color: #3f6d4e !important; 
+  box-shadow: 0 0 5px #3f6d4e, 0 0 5px #3f6d4e, 0 0 15px #3f6d4e !important; 
+  font-weight: 500;
 }
 
 .color-p {
-  background-color: #5e3a8d !important;
-  border-color: #8963BA !important;
+  background-color: #734f9a !important;
+  border-color: #965fd4 !important;
   color: white !important; 
   transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease !important;
 }
 
 .color-p:hover {
-  background-color: white !important; 
-  color: #5e3a8d !important; 
-  box-shadow: 0 0 5px #5e3a8d, 0 0 5px #5e3a8d, 0 0 15px #5e3a8d !important;
+  background-color: #f5f5f5 !important; 
+  color: #734f9a !important; 
+  box-shadow: 0 0 5px #734f9a, 0 0 5px #734f9a, 0 0 15px #734f9a !important;
+  font-weight: 500;
 }
 
 /*Efeito ícones footer*/
@@ -58,7 +60,7 @@ input[type=number] {
 }
 
 .neon-icon::before {
-  background: #76b68b;
+  background: #3f6d4e;
   transition: .5s;
 }
 
@@ -68,15 +70,15 @@ input[type=number] {
 }
 
 .neon-icon:hover {
-  color: #76b68b;
-  text-shadow: 0 0 5px #76b68b;
+  color: #3f6d4e;
+  text-shadow: 0 0 5px #3f6d4e;
 }
 
 /*Custom select do form*/
 
 .custom-select:focus {
-  border-color: #76b68b !important; 
-  box-shadow: 0 0 0 0.2rem rgba(118, 182, 139, 0.25) !important; 
+  border-color: #3f6d4e !important; 
+  box-shadow: 0 0 0 0.2rem rgba(63, 109, 78, 0.25) !important; 
 }
 
 /* Custom input para novo processo */
