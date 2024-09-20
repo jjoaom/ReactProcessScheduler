@@ -1,4 +1,4 @@
-# React Process Scheduler
+# React Process Scheduler - [![DeepScan grade](https://deepscan.io/api/teams/22713/projects/28013/branches/898601/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=22713&pid=28013&bid=898601) 
 
 Este é um projeto de um simulador de escalonamento de processos desenvolvido para a disciplina de Sistemas Operacionais da **PUC Minas**, sob orientação da professora **Cíntia Pinto Avelar**.
 
