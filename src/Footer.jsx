@@ -7,6 +7,7 @@ const Footer = () => {
     <footer className="bg-sim text-white py-1">
       <div className="container">
         <div className="row justify-content-between align-items-center">
+
           
           {/* Cauan */}
           <div className="col-md-4 d-flex align-items-center mb-3 mb-md-0">

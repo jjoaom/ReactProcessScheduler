@@ -12,7 +12,7 @@ function NovoProcesso({ onAddCard }) {
   return (
     <>
       <Button className="btn color-p"  onClick={handleShow}>
-        Novo processo
+        &#10010;
       </Button>
 
       <Modal size="sm" show={show} onHide={handleClose} centered>
