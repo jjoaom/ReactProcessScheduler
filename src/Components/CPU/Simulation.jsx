@@ -1,15 +1,36 @@
-import Alert from 'react-bootstrap/Alert';
+import React from 'react';
 
-function Simulation() {
+function Simulation({ result }) {
+  if (!result) {
+    return <div className="alert alert-warning text-center">Nenhum resultado disponível.</div>;
+  }
+
   return (
-    <div className='d-flex justify-content-center align-items-center w-100 h-100'>
-      {[
-        'success',
-      ].map((variant) => (
-        <Alert key={variant} variant={variant}>
-          Simulação será exibida aqui.
-        </Alert>
-      ))}
+    <div className="card">
+      <div className="card-header text-center">
+        Resultados da Simulação
+      </div>
+      <div className="card-body">
+        <table className="table">
+          <thead>
+            <tr>
+              <th>Processo</th>
+              <th>Duração</th>
+              <th>Tempo de Espera</th>
+            </tr>
+          </thead>
+          <tbody>
+            {result.processosOrdenados.map((processo, index) => (
+              <tr key={index}>
+                <td>{processo.nome || `Processo ${index + 1}`}</td>
+                <td>{processo.duracao} unidades de tempo</td>
+                <td>{processo.tempoDeEspera} unidades de tempo</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <p>Tempo Médio de Espera: {result.tempoMedioDeEspera.toFixed(2)} unidades de tempo</p>
+      </div>
     </div>
   );
 }

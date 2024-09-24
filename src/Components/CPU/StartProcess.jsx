@@ -1,10 +1,10 @@
 import Button from 'react-bootstrap/Button';
 
-function StartProcess() {
+function StartProcess({ onStartProcess }) {
   return (
-    <>
-      <Button className="btn color-g">Iniciar</Button>{' '}
-    </>
+    <Button className="btn color-g" onClick={onStartProcess}>
+      Iniciar
+    </Button>
   );
 }
 

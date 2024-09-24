@@ -6,7 +6,7 @@ function Parte3() {
   const navigate = useNavigate();
 
   return (
-    <Container className="text-center d-flex align-items-center justify-content-center vh-100">
+    <Container className="bg-custom text-center d-flex align-items-center justify-content-center vh-100">
       <Row>
         <Col>
           <h1>🚧 Em Produção 🚧</h1>

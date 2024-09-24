@@ -19,9 +19,14 @@ function FormProcesso({ onAddCard }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onAddCard(formData);
+    const newProcesso = {
+      ...formData,
+      chegada: Number(formData.chegada),
+      duracao: Number(formData.duracao),
+    };
+    onAddCard(newProcesso);
     setFormData({ name: '', chegada: '', duracao: '' });
-  };
+};
 
   return (
       <Form onSubmit={handleSubmit}>
