@@ -21,7 +21,6 @@ function Seletor() {
         CPU
       </Button>
 
-      {/* Botões desativados */}
       <Button
         className="btn color-p"
         onClick={() => handleNavigation('/parte2', false)}
@@ -31,8 +30,7 @@ function Seletor() {
       </Button>
       <Button
         className="btn color-p"
-        onClick={() => handleNavigation('/parte3', true)}
-        disabled
+        onClick={() => handleNavigation('/parte3', false)}
       >
         Parte 3
       </Button>

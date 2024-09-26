@@ -1,4 +1,4 @@
-import './App.css'
+import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import CPU from './Components/CPU/CPU';
 import Header from './Header';
@@ -11,7 +11,7 @@ function App() {
     <div className="d-flex flex-column vh-100">
       <Router>
         <Header />
-        <div className="flex-grow-1">
+        <div className="flex-grow-1 overflow-auto">
           <Routes>
             {/* Define CPU como a página inicial ("/") */}
             <Route path="/" element={<CPU />} />

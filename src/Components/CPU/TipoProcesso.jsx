@@ -1,16 +1,17 @@
 import Form from 'react-bootstrap/Form';
 
-function TipoProcesso() {
+function TipoProcesso({ selectedAlgorithm, setSelectedAlgorithm }) {
   return (
-    <>
-      <Form.Group className="mb-3">
-        <Form.Select className='custom-select' >
-            <option >Escolha um algorítimo</option>
-            <option value='sjf'>SJF Preemptivo</option>
-            <option value='rr'>Round Robin</option>
-        </Form.Select>
-      </Form.Group>
-    </>
+    <Form.Group className="mb-3">
+      <Form.Select 
+        className='custom-select' 
+        value={selectedAlgorithm} 
+        onChange={(e) => setSelectedAlgorithm(e.target.value)}
+      >
+        <option value="">Escolha um algoritmo</option>
+        <option value='sjf'>SJF Preemptivo</option>
+      </Form.Select>
+    </Form.Group>
   );
 }
 
