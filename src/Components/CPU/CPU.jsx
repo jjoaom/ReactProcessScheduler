@@ -36,19 +36,18 @@ function CPU() {
   };
 
   const startProcess = () => {
-    if (!selectedAlgorithm) {
-      alert('Por favor, selecione um algoritmo!');
+    if (!selectedAlgorithm || cards.length === 0) {
+      alert('Por favor, adicione processos e selecione um algoritmo!');
       return;
     }
-
+  
     let result = null;
     if (selectedAlgorithm === 'sjf') {
       result = Sjf(cards);
-      console.log('Sjf function result:', result);
+      console.log('Resultado SJF:', result);
     }
-
+  
     setSimulationResult(result);
-    console.log(`Iniciando o processo com o algoritmo: ${selectedAlgorithm}`, result);
   };
 
   return (

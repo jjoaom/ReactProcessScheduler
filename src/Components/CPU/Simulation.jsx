@@ -1,73 +1,50 @@
-export default function Sjf(processos) {
-  if (!Array.isArray(processos)) {
-      console.error('Esperado um array de processos.');
-      return { processosOrdenados: [], tempoMedioDeEspera: NaN };
-  }
+const Simulation = ({ result }) => {
+    // Verifica se result foi passado corretamente
+    if (!result || !result.processosOrdenados) {
+      return <p>Nenhum processo disponível para exibir.</p>;
+    }
+  
+    const { processosOrdenados, tempoMedioDeEspera } = result;
+  
+    return (
+        <div className="container mt-4">
+      <h3 className="text-center mb-4">Simulação de Processos Ordenados (SJF)</h3>
+      <div className="table-responsive">
+        {processosOrdenados.length > 0 ? (
+          <table className="table table-hover table-striped table-bordered table-sm text-center">
+            <thead className="thead-dark">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Chegada</th>
+                <th scope="col">Duração Original</th>
+                <th scope="col">Tempo de Espera</th>
+              </tr>
+            </thead>
+            <tbody>
+              {processosOrdenados.map((processo, index) => (
+                <tr key={index}>
+                  <th scope="row">{index + 1}</th>
+                  <td>P{index + 1}</td>
+                  <td>{processo.chegada}</td>
+                  <td>{processo.duracaoOriginal}</td>
+                  <td>{processo.tempoDeEspera || 0}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          <p>Nenhum processo disponível para exibir.</p>
+        )}
+      </div>
+      <div className="mt-3">
+        <p className="text-center">
+          <strong>Tempo Médio de Espera:</strong>{' '}
+          {isNaN(tempoMedioDeEspera) ? 'N/A' : tempoMedioDeEspera.toFixed(2)}
+        </p>
+      </div>
+    </div>
+  );
+};
 
-  // Mantém a duração original
-  const processosComDuraçãoOriginal = processos.map(processo => ({
-      ...processo,
-      duracaoOriginal: processo.duracao // Adiciona a duração original
-  }));
-
-  const processosValidos = processosComDuraçãoOriginal.filter((processo) => {
-      const duracaoValida = !isNaN(processo.duracao) && typeof processo.duracao === 'number';
-      const chegadaValida = !isNaN(processo.chegada) && typeof processo.chegada === 'number';
-      if (!duracaoValida || !chegadaValida) {
-          console.error('Dados inválidos:', processo);
-      }
-      return duracaoValida && chegadaValida;
-  });
-
-  let tempoAtual = 0;
-  let tempoTotalDeEspera = 0;
-  const fila = [];
-
-  while (fila.length > 0 || processosValidos.length > 0) {
-      // Adiciona processos que chegaram até agora à fila
-      for (let i = 0; i < processosValidos.length; i++) {
-          if (processosValidos[i].chegada <= tempoAtual) {
-              fila.push(processosValidos.splice(i, 1)[0]);
-              i--; // Ajusta o índice após remoção
-          }
-      }
-
-      if (fila.length === 0) {
-          // Se não há processos na fila, avança o tempo
-          tempoAtual++;
-          continue;
-      }
-
-      // Ordena a fila pela duração
-      fila.sort((a, b) => a.duracao - b.duracao);
-
-      const processoAtual = fila[0];
-
-      // Calcula o tempo de espera
-      processoAtual.tempoDeEspera = Math.max(0, tempoAtual - processoAtual.chegada);
-      tempoTotalDeEspera += processoAtual.tempoDeEspera;
-
-      // Executa o processo por 1 unidade de tempo
-      processoAtual.duracao--;
-
-      // Se o processo terminar, remove da fila
-      if (processoAtual.duracao === 0) {
-          fila.shift();
-      }
-
-      tempoAtual++;
-  }
-
-  // Retorna a duração original
-  const resultados = processosComDuraçãoOriginal.map(processo => ({
-      ...processo,
-      duracao: processo.duracaoOriginal, // Mantém a duração original
-  }));
-
-  const tempoMedioDeEspera = tempoTotalDeEspera / (processos.length || 1);
-
-  return {
-      processosOrdenados: resultados,
-      tempoMedioDeEspera: tempoMedioDeEspera,
-  };
-}
+export default Simulation;
