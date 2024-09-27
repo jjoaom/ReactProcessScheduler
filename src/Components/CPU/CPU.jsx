@@ -53,8 +53,8 @@ function CPU() {
   return (
     <Container fluid className="h-100">
       <Row className="h-100">
-        <Col md={4} lg={2} className="d-flex overflow-auto flex-column align-items-start justify-content-start p-2">
-          <div className="d-flex flex-wrap w-100 mb-3">
+        <Col md={4} lg={2} className="d-flex overflow-auto flex-column justify-content-stard p-2">
+          <div className="d-flex flex-wrap w-100 mb-5">
             <div className="w-100 w-md-auto mb-2 me-md-2">
               <TipoProcesso 
                 selectedAlgorithm={selectedAlgorithm} 

@@ -8,9 +8,8 @@ const Simulation = ({ result }) => {
   
     return (
       <div className="container-responsive">
-        <div className="table-responsive">
           {processosOrdenados.length > 0 ? (
-            <table className="table table-hover table-striped table-bordered table-sm text-center">
+            <table className="table table-hover table-striped table-bordered text-center m-1">
               <thead className="thead-dark">
                 <tr>
                   <th scope="col">#</th>
@@ -27,14 +26,14 @@ const Simulation = ({ result }) => {
                     <td>P{index + 1}</td>
                     <td>{processo.chegada}</td>
                     <td>{processo.duracaoOriginal}</td>
-                    <td>{processo.tempoDeEspera || 0}</td>
+                    <td >{processo.tempoDeEspera || 0}</td>
                   </tr>
                 ))}
                 <tr>
                   <td colSpan="4" className="text-right">
                     <strong>Tempo Médio de Espera:</strong>
                   </td>
-                  <td>
+                  <td className="table-active">
                     {isNaN(tempoMedioDeEspera)
                       ? "N/A"
                       : tempoMedioDeEspera.toFixed(2)}
@@ -45,7 +44,6 @@ const Simulation = ({ result }) => {
           ) : (
             <p>Nenhum processo disponível para exibir.</p>
           )}
-        </div>
       </div>
     );
 };
