@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import useLoadProcesses from './algorithms/Processes';
 import Sjf from './algorithms/Sjf';
+import Fcfs from './algorithms/Fcfs';
+import RoundRobin from './algorithms/Rr';
 import { Container, Row, Col } from 'react-bootstrap';
 import NovoProcesso from './NovoProcesso';
 import ProcessList from './ProcessList';
@@ -40,13 +42,16 @@ function CPU() {
       alert('Por favor, adicione processos e selecione um algoritmo!');
       return;
     }
-  
+
     let result = null;
     if (selectedAlgorithm === 'sjf') {
       result = Sjf(cards);
-      console.log('Resultado SJF:', result);
+    } else if (selectedAlgorithm === 'fcfs') {
+      result = Fcfs(cards);
+    }else if(selectedAlgorithm === 'rr'){
+      result = RoundRobin(cards);
     }
-  
+
     setSimulationResult(result);
   };
 
@@ -62,7 +67,7 @@ function CPU() {
               />
             </div>
             <div className="w-100 d-flex justify-content-evenly">
-              <NovoProcesso onAddCard={addCard} />
+              <NovoProcesso onAddCard={addCard} selectedAlgorithm={selectedAlgorithm} />
               <StartProcess onStartProcess={startProcess} />
             </div>
           </div>

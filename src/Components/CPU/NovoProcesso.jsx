@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import FormProcesso from './FormProcesso';
 
-function NovoProcesso({ onAddCard }) {
+function NovoProcesso({ onAddCard, selectedAlgorithm }) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -20,7 +20,7 @@ function NovoProcesso({ onAddCard }) {
           <Modal.Title>Criar novo processo</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <FormProcesso onAddCard={onAddCard} />
+          <FormProcesso onAddCard={onAddCard} selectedAlgorithm={selectedAlgorithm} />
         </Modal.Body>
       </Modal>
     </>

@@ -10,6 +10,8 @@ function TipoProcesso({ selectedAlgorithm, setSelectedAlgorithm }) {
       >
         <option value="">Escolha um algoritmo</option>
         <option value='sjf'>SJF Preemptivo</option>
+        <option value='fcfs'>FCFS</option>
+        <option value='rr'>Round Robin</option>
       </Form.Select>
     </Form.Group>
   );

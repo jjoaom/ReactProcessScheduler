@@ -1,17 +1,16 @@
-export default function Sjf(processos) {
-    if (!Array.isArray(processos)) {
-        console.error('Esperado um array de processos.');
+export default function RoundRobin(processos, quantum) {
+    if (!Array.isArray(processos) || quantum <= 0) {
+        console.error('Esperado um array de processos e um quantum válido.');
         return { processosOrdenados: [], tempoMedioDeEspera: NaN };
     }
 
-    // Cria uma cópia dos processos para preservar a duração original
     const processosComDuraçãoOriginal = processos.map(processo => ({
         ...processo,
         duracaoOriginal: processo.duracao,
         tempoDeEspera: 0, // Inicializa o tempo de espera
     }));
 
-    const processosValidos = processosComDuraçãoOriginal.filter((processo) => {
+    const processosValidos = processosComDuraçãoOriginal.filter(processo => {
         const duracaoValida = !isNaN(processo.duracao) && typeof processo.duracao === 'number';
         const chegadaValida = !isNaN(processo.chegada) && typeof processo.chegada === 'number';
         if (!duracaoValida || !chegadaValida) {
@@ -24,13 +23,14 @@ export default function Sjf(processos) {
     let tempoTotalDeEspera = 0;
     const fila = [];
 
-    while (fila.length > 0 || processosValidos.length > 0) {
+    // Adiciona todos os processos à fila inicialmente
+    let indice = 0;
+
+    while (indice < processosValidos.length || fila.length > 0) {
         // Adiciona processos que chegaram até agora à fila
-        for (let i = 0; i < processosValidos.length; i++) {
-            if (processosValidos[i].chegada <= tempoAtual) {
-                fila.push(processosValidos.splice(i, 1)[0]);
-                i--;
-            }
+        while (indice < processosValidos.length && processosValidos[indice].chegada <= tempoAtual) {
+            fila.push(processosValidos[indice]);
+            indice++;
         }
 
         if (fila.length === 0) {
@@ -39,28 +39,25 @@ export default function Sjf(processos) {
             continue;
         }
 
-        // Ordena a fila pela duração
-        fila.sort((a, b) => a.duracao - b.duracao);
+        const processoAtual = fila.shift(); // Remove o processo da frente da fila
+        const tempoExecucao = Math.min(processoAtual.duracao, quantum); // Executa pelo tempo do quantum
 
-        const processoAtual = fila[0];
+        // Atualiza a duração do processo e o tempo de espera dos outros
+        tempoAtual += tempoExecucao;
+        processoAtual.duracao -= tempoExecucao;
 
-        // Atualiza o tempo de espera para todos os processos na fila
+        // Atualiza o tempo de espera para os processos restantes na fila
         fila.forEach(processo => {
-            if (processo !== processoAtual) {
-                processo.tempoDeEspera++;
-            }
+            processo.tempoDeEspera += tempoExecucao;
         });
 
-        // Executa o processo atual por 1 unidade de tempo
-        processoAtual.duracao--;
-
-        // Se o processo terminar, remove da fila
-        if (processoAtual.duracao === 0) {
-            fila.shift();
-            tempoTotalDeEspera += processoAtual.tempoDeEspera; // Adiciona o tempo de espera acumulado
+        // Se o processo não terminou, volta para a fila
+        if (processoAtual.duracao > 0) {
+            fila.push(processoAtual);
+        } else {
+            // Adiciona o tempo de espera do processo finalizado
+            tempoTotalDeEspera += processoAtual.tempoDeEspera;
         }
-
-        tempoAtual++;
     }
 
     const resultados = processosComDuraçãoOriginal.map(processo => ({

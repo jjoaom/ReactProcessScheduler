@@ -3,81 +3,91 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Alert from 'react-bootstrap/Alert';
 
-function FormProcesso({ onAddCard }) {
-  const [formData, setFormData] = useState({
-    chegada: '',
-    duracao: ''
-  });
+function FormProcesso({ onAddCard, selectedAlgorithm }) {
+    const [formData, setFormData] = useState({ chegada: '', duracao: '', prioridade: '' });
+    const [error, setError] = useState('');
 
-  const [error, setError] = useState('');
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-    setError(''); // Limpa o erro quando o usuário começa a digitar
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    
-    // Verifica se os campos estão vazios
-    if (!formData.chegada || !formData.duracao) {
-      setError('Por favor, preencha todos os campos.');
-      
-      // Remove o erro após 1 segundo
-      setTimeout(() => {
-        setError('');
-      }, 777);
-      
-      return;
-    }
-
-    const newCard = {
-      name: `P${Date.now()}`,
-      chegada: parseFloat(formData.chegada),
-      duracao: parseFloat(formData.duracao)
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData((prevData) => ({ ...prevData, [name]: value }));
+        if (error) setError(''); // Limpa o erro ao digitar
     };
-    
-    onAddCard(newCard);
-    setFormData({ chegada: '', duracao: '' });
-  };
 
-  return (
-    <Form onSubmit={handleSubmit}>
-      {error && <Alert variant="danger">{error}</Alert>}
-      
-      <Form.Group className="mb-3" controlId="chegada">
-        <Form.Control
-          className="custom-input"
-          type="number"
-          name="chegada"
-          value={formData.chegada}
-          onChange={handleChange}
-          placeholder="Chegada"
-        />
-      </Form.Group>
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        
+        if (!formData.chegada || !formData.duracao || (selectedAlgorithm === 'rr' && !formData.tempoQuantum)) {
+            setError('Por favor, preencha todos os campos obrigatórios.');
+            return;
+        }
 
-      <Form.Group className="mb-3" controlId="duracao">
-        <Form.Control
-          className="custom-input"
-          type="number"
-          name="duracao"
-          value={formData.duracao}
-          onChange={handleChange}
-          placeholder="Duração"
-        />
-      </Form.Group>
+        const newCard = {
+            name: `P${Date.now()}`,
+            chegada: parseFloat(formData.chegada),
+            duracao: parseFloat(formData.duracao),
+            prioridade: formData.prioridade ? parseFloat(formData.prioridade) : undefined,
+            tempoQuantum: formData.tempoQuantum ? parseFloat(formData.tempoQuantum) : undefined,
+        };
 
-      <div className="d-flex justify-content-center">
-        <Button className="btn text-white color-p" type="submit">
-          Criar
-        </Button>
-      </div>
-    </Form>
-  );
+        onAddCard(newCard);
+        setFormData({ chegada: '', duracao: '', prioridade: '', tempoQuantum: '' });
+    };
+
+    return (
+        <Form onSubmit={handleSubmit}>
+            {error && <Alert variant="danger">{error}</Alert>}
+            
+            <Form.Group className="mb-3" controlId="chegada">
+                <Form.Control
+                    type="number"
+                    name="chegada"
+                    value={formData.chegada}
+                    onChange={handleChange}
+                    placeholder="Chegada"
+                />
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="duracao">
+                <Form.Control
+                    type="number"
+                    name="duracao"
+                    value={formData.duracao}
+                    onChange={handleChange}
+                    placeholder="Duração"
+                />
+            </Form.Group>
+
+            {selectedAlgorithm === 'sjf' && (
+                <Form.Group className="mb-3" controlId="prioridade">
+                    <Form.Control
+                        type="number"
+                        name="prioridade"
+                        value={formData.prioridade}
+                        onChange={handleChange}
+                        placeholder="Prioridade (opcional)"
+                    />
+                </Form.Group>
+            )}
+
+            {selectedAlgorithm === 'rr' && (
+                <Form.Group className="mb-3" controlId="tempoQuantum">
+                    <Form.Control
+                        type="number"
+                        name="tempoQuantum"
+                        value={formData.tempoQuantum}
+                        onChange={handleChange}
+                        placeholder="Tempo Quantum"
+                    />
+                </Form.Group>
+            )}
+
+            <div className="d-flex justify-content-center">
+                <Button type="submit">
+                    Criar
+                </Button>
+            </div>
+        </Form>
+    );
 }
 
 export default FormProcesso;
