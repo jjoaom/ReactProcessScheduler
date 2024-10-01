@@ -12,40 +12,29 @@ import TipoProcesso from "./TipoProcesso";
 import Quantum from "./Quantum";
 
 function CPU() {
+  const { processos: loadedProcesses } = useLoadProcesses(); // Carrega processos do localStorage
   const [cards, setCards] = useState([]);
   const [selectedAlgorithm, setSelectedAlgorithm] = useState("");
   const [simulationResult, setSimulationResult] = useState(null);
-  const loadedProcesses = useLoadProcesses();
-
-  // Estado para controlar a visibilidade do Toast
   const [showToast, setShowToast] = useState(false);
 
   useEffect(() => {
-    const savedCards =
-      JSON.parse(localStorage.getItem("cards")) || loadedProcesses || [];
-    setCards(savedCards);
-  }, [loadedProcesses]);
-
-  const [selectedOption, setSelectedOption] = useState("");
-
-  const handleSelectChange = (event) => {
-    setSelectedOption(event.target.value);
-  };
-
-  useEffect(() => {
-    localStorage.setItem("cards", JSON.stringify(cards));
-  }, [cards]);
+    // Carregar apenas se loadedProcesses não estiver vazio e cards estiver vazio
+    if (cards.length === 0) {
+      setCards(loadedProcesses); // Carregar os processos do localStorage se cards estiver vazio
+    }
+  }, [loadedProcesses, cards.length]);
 
   const addCard = (newCard) => {
-    setCards((prevCards) => [...prevCards, newCard]);
+    const updatedCards = [...cards, newCard];
+    setCards(updatedCards);
+    localStorage.setItem("cards", JSON.stringify(updatedCards));
   };
 
   const deleteCard = (index) => {
-    setCards((prevCards) => {
-      const updatedCards = prevCards.filter((_, i) => i !== index);
-      localStorage.setItem("cards", JSON.stringify(updatedCards));
-      return updatedCards;
-    });
+    const updatedCards = cards.filter((_, i) => i !== index);
+    setCards(updatedCards);
+    localStorage.setItem("cards", JSON.stringify(updatedCards));
   };
 
   const startProcess = () => {
@@ -77,11 +66,8 @@ function CPU() {
           <div className="d-flex flex-wrap w-100 mb-5">
             <div className="w-100 w-md-auto mb-2 me-md-2">
               <TipoProcesso
-                onChange={handleSelectChange}
+                onChange={(e) => setSelectedAlgorithm(e.target.value)}
                 selectedAlgorithm={selectedAlgorithm}
-                setSelectedAlgorithm={setSelectedAlgorithm}
-                selectedOption={selectedOption}
-                setSelectedOption={setSelectedOption}
               />
               {/* Renderiza o Quantum apenas se o algoritmo selecionado for "rr" */}
               {selectedAlgorithm === "rr" && (
@@ -117,14 +103,14 @@ function CPU() {
       </Row>
 
       {/* Toast Container */}
-      <ToastContainer position="middle-center" className="p-3">
+      <ToastContainer position="top-center" className="p-3">
         <Toast
           onClose={() => setShowToast(false)}
           show={showToast}
           delay={3000}
           autohide
         >
-          <Toast.Body className="font-weight-bold">Por favor, adicione processos e selecione um algoritmo!</Toast.Body>
+          <Toast.Body className="fw-bold">Por favor, adicione processos e selecione um algoritmo!</Toast.Body>
         </Toast>
       </ToastContainer>
     </Container>
