@@ -52,6 +52,19 @@ input[type=number] {
   box-shadow: 0 0 5px #734f9a, 0 0 5px #734f9a, 0 0 15px #734f9a !important;
   font-weight: 500;
 }
+.color-r {
+  background-color: #D00000 !important;
+  border-color: #e20000 !important;
+  color: white !important; 
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease !important;
+}
+
+.color-r:hover {
+  background-color: #f5f5f5 !important; 
+  color: #D00000 !important; 
+  box-shadow: 0 0 5px #D00000, 0 0 5px #D00000, 0 0 15px #D00000 !important;
+  font-weight: 500;
+}
 
 /*Efeito ícones footer*/
 .neon-icon {

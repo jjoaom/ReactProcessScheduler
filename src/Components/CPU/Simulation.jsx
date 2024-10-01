@@ -1,7 +1,7 @@
 const Simulation = ({ result }) => {
     // Verifica se result foi passado corretamente
     if (!result || !result.processosOrdenados) {
-      return <p>Nenhum processo disponível para exibir.</p>;
+      return <p className="rounded p-3 mb-2 bg-white text-dark">Nenhum processo disponível para exibir.</p>;
     }
   
     const { processosOrdenados, tempoMedioDeEspera } = result;
@@ -42,7 +42,7 @@ const Simulation = ({ result }) => {
               </tbody>
             </table>
           ) : (
-            <p>Nenhum processo disponível para exibir.</p>
+            <p className="p-3 mb-2 bg-white text-dark">Nenhum processo disponível para exibir.</p>
           )}
       </div>
     );

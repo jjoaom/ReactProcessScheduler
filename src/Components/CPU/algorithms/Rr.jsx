@@ -1,16 +1,19 @@
 export default function RoundRobin(processos, quantum) {
-    if (!Array.isArray(processos) || quantum <= 0) {
-        console.error('Esperado um array de processos e um quantum válido.');
+    // Validação dos parâmetros de entrada
+    if (!Array.isArray(processos) || processos.length === 0 || quantum <= 0) {
+        console.error('Esperado um array de processos não vazio e um quantum válido.');
         return { processosOrdenados: [], tempoMedioDeEspera: NaN };
     }
 
-    const processosComDuraçãoOriginal = processos.map(processo => ({
+    // Mapeia os processos, armazenando a duração original e inicializando o tempo de espera
+    const processosComDuracaoOriginal = processos.map(processo => ({
         ...processo,
         duracaoOriginal: processo.duracao,
-        tempoDeEspera: 0, // Inicializa o tempo de espera
+        tempoDeEspera: 0,
     }));
 
-    const processosValidos = processosComDuraçãoOriginal.filter(processo => {
+    // Filtra processos válidos
+    const processosValidos = processosComDuracaoOriginal.filter(processo => {
         const duracaoValida = !isNaN(processo.duracao) && typeof processo.duracao === 'number';
         const chegadaValida = !isNaN(processo.chegada) && typeof processo.chegada === 'number';
         if (!duracaoValida || !chegadaValida) {
@@ -22,10 +25,9 @@ export default function RoundRobin(processos, quantum) {
     let tempoAtual = 0;
     let tempoTotalDeEspera = 0;
     const fila = [];
-
-    // Adiciona todos os processos à fila inicialmente
     let indice = 0;
 
+    // Loop principal do algoritmo
     while (indice < processosValidos.length || fila.length > 0) {
         // Adiciona processos que chegaram até agora à fila
         while (indice < processosValidos.length && processosValidos[indice].chegada <= tempoAtual) {
@@ -60,9 +62,10 @@ export default function RoundRobin(processos, quantum) {
         }
     }
 
-    const resultados = processosComDuraçãoOriginal.map(processo => ({
+    // Mapeia os resultados para retornar os dados corretos
+    const resultados = processosComDuracaoOriginal.map(processo => ({
         ...processo,
-        duracao: processo.duracaoOriginal,
+        duracao: processo.duracaoOriginal, // Retorna a duração original
         tempoDeEspera: processo.tempoDeEspera, // Mantém o tempo de espera correto
     }));
 

@@ -1,21 +1,28 @@
 import { useState, useEffect } from 'react';
 
-// carrega os processos do localStorage
+// Carrega os processos e o quantum do localStorage
 const loadProcesses = () => {
   const storedProcesses = localStorage.getItem('processos');
-  return storedProcesses ? JSON.parse(storedProcesses) : [];
+  const storedQuantum = localStorage.getItem('quantum');
+  
+  return {
+    processos: storedProcesses ? JSON.parse(storedProcesses) : [],
+    quantum: storedQuantum ? JSON.parse(storedQuantum) : null, // Certifique-se de que o quantum esteja em um formato apropriado
+  };
 };
 
-// Hook personalizado para gerenciar os processos
+// Hook personalizado para gerenciar os processos e o quantum
 const useLoadProcesses = () => {
   const [processos, setProcessos] = useState([]);
+  const [quantum, setQuantum] = useState(null);
 
   useEffect(() => {
-    const processosCarregados = loadProcesses();
+    const { processos: processosCarregados, quantum: quantumCarregado } = loadProcesses();
     setProcessos(processosCarregados);
+    setQuantum(quantumCarregado); 
   }, []);
 
-  return processos;
+  return { processos, quantum }; 
 };
 
 export default useLoadProcesses;

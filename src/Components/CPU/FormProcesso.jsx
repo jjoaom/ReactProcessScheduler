@@ -16,7 +16,7 @@ function FormProcesso({ onAddCard, selectedAlgorithm }) {
     const handleSubmit = (e) => {
         e.preventDefault();
         
-        if (!formData.chegada || !formData.duracao || (selectedAlgorithm === 'rr' && !formData.tempoQuantum)) {
+        if (!formData.chegada || !formData.duracao) {
             setError('Por favor, preencha todos os campos obrigatórios.');
             return;
         }
@@ -25,12 +25,11 @@ function FormProcesso({ onAddCard, selectedAlgorithm }) {
             name: `P${Date.now()}`,
             chegada: parseFloat(formData.chegada),
             duracao: parseFloat(formData.duracao),
-            prioridade: formData.prioridade ? parseFloat(formData.prioridade) : undefined,
-            tempoQuantum: formData.tempoQuantum ? parseFloat(formData.tempoQuantum) : undefined,
+
         };
 
         onAddCard(newCard);
-        setFormData({ chegada: '', duracao: '', prioridade: '', tempoQuantum: '' });
+        setFormData({ chegada: '', duracao: '', prioridade: ''});
     };
 
     return (
@@ -56,8 +55,8 @@ function FormProcesso({ onAddCard, selectedAlgorithm }) {
                     placeholder="Duração"
                 />
             </Form.Group>
-
-            {selectedAlgorithm === 'sjf' && (
+            {/*} campo para prioridade
+            {selectedAlgorithm === '' && (
                 <Form.Group className="mb-3" controlId="prioridade">
                     <Form.Control
                         type="number"
@@ -68,21 +67,10 @@ function FormProcesso({ onAddCard, selectedAlgorithm }) {
                     />
                 </Form.Group>
             )}
-
-            {selectedAlgorithm === 'rr' && (
-                <Form.Group className="mb-3" controlId="tempoQuantum">
-                    <Form.Control
-                        type="number"
-                        name="tempoQuantum"
-                        value={formData.tempoQuantum}
-                        onChange={handleChange}
-                        placeholder="Tempo Quantum"
-                    />
-                </Form.Group>
-            )}
+            {*/}
 
             <div className="d-flex justify-content-center">
-                <Button type="submit">
+                <Button type="submit" className="btn color-p">
                     Criar
                 </Button>
             </div>
