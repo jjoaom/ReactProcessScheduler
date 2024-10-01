@@ -66,8 +66,8 @@ function CPU() {
           <div className="d-flex flex-wrap w-100 mb-5">
             <div className="w-100 w-md-auto mb-2 me-md-2">
               <TipoProcesso
-                onChange={(e) => setSelectedAlgorithm(e.target.value)}
                 selectedAlgorithm={selectedAlgorithm}
+                setSelectedAlgorithm={setSelectedAlgorithm}
               />
               {/* Renderiza o Quantum apenas se o algoritmo selecionado for "rr" */}
               {selectedAlgorithm === "rr" && (
@@ -110,7 +110,9 @@ function CPU() {
           delay={3000}
           autohide
         >
-          <Toast.Body className="fw-bold">Por favor, adicione processos e selecione um algoritmo!</Toast.Body>
+          <Toast.Body className="fw-bold">
+            Por favor, adicione processos e selecione um algoritmo!
+          </Toast.Body>
         </Toast>
       </ToastContainer>
     </Container>
