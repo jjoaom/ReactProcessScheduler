@@ -44,16 +44,18 @@ function CPU() {
     }
 
     let result = null;
+    const storedQuantum = localStorage.getItem('quantum') ? JSON.parse(localStorage.getItem('quantum')) : null;
+
     if (selectedAlgorithm === "sjf") {
       result = Sjf(cards);
     } else if (selectedAlgorithm === "fcfs") {
       result = Fcfs(cards);
-    } else if (selectedAlgorithm === "rr") {
-      result = RoundRobin(cards);
+    } else if (selectedAlgorithm === "rr" && storedQuantum) {
+      result = RoundRobin(cards, storedQuantum);  // Passa o quantum para o algoritmo
     }
 
     setSimulationResult(result);
-  };
+};
 
   return (
     <Container fluid className="h-100">

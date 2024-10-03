@@ -1,7 +1,6 @@
 export default function RoundRobin(processos, quantum) {
-    // Validação dos parâmetros de entrada
     if (!Array.isArray(processos) || processos.length === 0 || quantum <= 0) {
-        console.error('Esperado um array de processos não vazio e um quantum válido.');
+        console.error('Esperado um array de processos não vazio e um quantum válido.', processos, quantum);
         return { processosOrdenados: [], tempoMedioDeEspera: NaN };
     }
 
@@ -9,7 +8,9 @@ export default function RoundRobin(processos, quantum) {
     const processosComDuracaoOriginal = processos.map(processo => ({
         ...processo,
         duracaoOriginal: processo.duracao,
-        tempoDeEspera: 0,
+        tempoDeEspera: 0, // Inicializa o tempo de espera
+        tempoRestante: processo.duracao, // Armazena a duração restante do processo
+        tempoFinalizacao: 0, // Armazena o tempo em que o processo é finalizado
     }));
 
     // Filtra processos válidos
@@ -42,11 +43,11 @@ export default function RoundRobin(processos, quantum) {
         }
 
         const processoAtual = fila.shift(); // Remove o processo da frente da fila
-        const tempoExecucao = Math.min(processoAtual.duracao, quantum); // Executa pelo tempo do quantum
+        const tempoExecucao = Math.min(processoAtual.tempoRestante, quantum); // Executa pelo tempo do quantum ou até a duração restante
 
-        // Atualiza a duração do processo e o tempo de espera dos outros
+        // Atualiza o tempo de execução do processo e o tempo total
         tempoAtual += tempoExecucao;
-        processoAtual.duracao -= tempoExecucao;
+        processoAtual.tempoRestante -= tempoExecucao;
 
         // Atualiza o tempo de espera para os processos restantes na fila
         fila.forEach(processo => {
@@ -54,10 +55,13 @@ export default function RoundRobin(processos, quantum) {
         });
 
         // Se o processo não terminou, volta para a fila
-        if (processoAtual.duracao > 0) {
+        if (processoAtual.tempoRestante > 0) {
             fila.push(processoAtual);
         } else {
-            // Adiciona o tempo de espera do processo finalizado
+            // Se o processo terminou, define o tempo de finalização
+            processoAtual.tempoFinalizacao = tempoAtual;
+            // Calcula o tempo total de espera: (tempo de finalização - chegada - duração original)
+            processoAtual.tempoDeEspera = processoAtual.tempoFinalizacao - processoAtual.chegada - processoAtual.duracaoOriginal;
             tempoTotalDeEspera += processoAtual.tempoDeEspera;
         }
     }
@@ -66,9 +70,10 @@ export default function RoundRobin(processos, quantum) {
     const resultados = processosComDuracaoOriginal.map(processo => ({
         ...processo,
         duracao: processo.duracaoOriginal, // Retorna a duração original
-        tempoDeEspera: processo.tempoDeEspera, // Mantém o tempo de espera correto
+        tempoDeEspera: processo.tempoDeEspera, // Mantém o tempo de espera calculado corretamente
     }));
 
+    // Calcula o tempo médio de espera
     const tempoMedioDeEspera = tempoTotalDeEspera / (resultados.length || 1);
 
     return {
