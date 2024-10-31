@@ -23,10 +23,10 @@ function Seletor() {
 
       <Button
         className="btn color-p"
-        onClick={() => handleNavigation('/parte2', false)}
+        onClick={() => handleNavigation('/memoria', false)}
         
       >
-        Parte 2
+        Memória
       </Button>
       <Button
         className="btn color-p"

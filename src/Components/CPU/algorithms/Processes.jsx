@@ -7,7 +7,7 @@ const loadProcesses = () => {
   
   return {
     processos: storedProcesses ? JSON.parse(storedProcesses) : [],
-    quantum: storedQuantum ? JSON.parse(storedQuantum) : null, // Certifique-se de que o quantum esteja em um formato apropriado
+    quantum: storedQuantum ? JSON.parse(storedQuantum) : null, 
   };
 };
 

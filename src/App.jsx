@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import CPU from './Components/CPU/CPU';
 import Header from './Header';
 import Footer from './Footer';
-import Parte2 from './Components/Parte2/Parte2';
+import Memoria from './Components/memoria/Memoria';
 import Parte3 from './Components/Parte3/Parte3';
 
 function App() {
@@ -17,7 +17,7 @@ function App() {
             <Route path="/" element={<CPU />} />
             {/* Define a rota específica para "/cpu" */}
             <Route path="/cpu" element={<CPU />} />
-            <Route path="/parte2" element={<Parte2 />} />
+            <Route path="/memoria" element={<Memoria />} />
             <Route path="/parte3" element={<Parte3 />} />
           </Routes>
         </div>
