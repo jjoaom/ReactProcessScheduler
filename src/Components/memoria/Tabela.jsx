@@ -1,27 +1,94 @@
-import React from 'react';
-import { Table } from 'react-bootstrap';
+import React, { useState, useRef } from "react";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import { Col, Row } from "react-bootstrap";
+import TipoProcesso from "./TipoAlgorithm";
 
-const Tabela = ({ colunas, dados }) => {
+function Tabela() {
+  const [campos, setCampos] = useState(Array(16).fill(""));
+  const inputRefs = useRef([]);
+
+  const adicionarCampo = () => {
+    setCampos([...campos, ""]);
+  };
+
+  const handleInputChange = (index, valor) => {
+    const novosCampos = [...campos];
+    novosCampos[index] = valor;
+    setCampos(novosCampos);
+
+    // Mover foco para o próximo campo se dois dígitos forem digitados
+    if (valor.length === 2 && inputRefs.current[index + 1]) {
+      inputRefs.current[index + 1].focus();
+    }
+  };
+
+  const handleKeyDown = (index, event) => {
+    // Mover foco para o campo anterior se Backspace for pressionado e o campo estiver vazio
+    if (
+      event.key === "Backspace" &&
+      campos[index] === "" &&
+      inputRefs.current[index - 1]
+    ) {
+      inputRefs.current[index - 1].focus();
+    }
+  };
+
   return (
-    <Table striped bordered hover>
-      <thead>
-        <tr>
-          {colunas.map((coluna, index) => (
-            <th key={index}>{coluna}</th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        {dados.map((linha, index) => (
-          <tr key={index}>
-            {colunas.map((coluna, colIndex) => (
-              <td key={colIndex}>{linha[coluna]}</td>
-            ))}
-          </tr>
+    <Row className="d-flex justify-content-center m-0">
+      <Row className="justify-content-center m-3 p-3">
+        <Col xs={12} md={3} className="d-flex justify-content-center">
+          <TipoProcesso />
+        </Col>
+        <Col xs={12} md={3} className="d-flex justify-content-center">
+          <Form.Group>
+            <Form.Control
+              type="text"
+              maxLength="3"
+              placeholder="Quadros"
+              className="form-control"
+            />
+          </Form.Group>
+        </Col>
+
+        <Col xs={12} md={3} className="d-flex justify-content-center">
+          <Button className="btn color-g" type="submit">
+            Iniciar Simulação
+          </Button>
+        </Col>
+      </Row>
+      
+      <Col xs={12} className="d-flex flex-wrap justify-content-center align-items-start m-0">
+        <Button className="btn color-g m-1" onClick={adicionarCampo}>
+          +
+        </Button>
+      </Col>
+
+      <Col
+        xs={12}
+        className="d-flex flex-wrap justify-content-center align-items-start m-0"
+      >
+        {campos.map((valor, index) => (
+          <Form.Group key={index} className="m-1">
+            <Form.Control
+              type="text"
+              maxLength="2"
+              style={{ width: "5ch" }}
+              value={valor}
+              onChange={(e) =>
+                handleInputChange(
+                  index,
+                  e.target.value.replace(/[^0-9]/g, "").slice(0, 2)
+                )
+              }
+              onKeyDown={(e) => handleKeyDown(index, e)}
+              ref={(el) => (inputRefs.current[index] = el)} // Ref para cada campo de entrada
+            />
+          </Form.Group>
         ))}
-      </tbody>
-    </Table>
+      </Col>
+    </Row>
   );
-};
+}
 
 export default Tabela;

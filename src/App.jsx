@@ -14,7 +14,7 @@ function App() {
         <div className="flex-grow-1 overflow-auto">
           <Routes>
             {/* Define CPU como a página inicial ("/") */}
-            <Route path="/" element={<CPU />} />
+            <Route path="/" element={<Memoria />} />
             {/* Define a rota específica para "/cpu" */}
             <Route path="/cpu" element={<CPU />} />
             <Route path="/memoria" element={<Memoria />} />
