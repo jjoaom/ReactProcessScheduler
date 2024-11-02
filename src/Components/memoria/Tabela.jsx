@@ -3,7 +3,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { Col, Container, Row } from "react-bootstrap";
 import TipoProcesso from "./TipoProcesso";
-import Algoritmos from "./Algoritmos"; // Importa o componente Algoritmos
+import Algoritmos from "./Algoritmos";
 
 function Tabela() {
   const [campos, setCampos] = useState(Array(16).fill(""));
